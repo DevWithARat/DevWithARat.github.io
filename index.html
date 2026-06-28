@@ -8,13 +8,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- NAV — lives outside the scroll container so position:fixed is unaffected -->
   <nav id="navbar">
-    <a href="#hero" class="nav-logo">
+    <a href="#hero" class="nav-logo" data-scroll-to="#hero">
       <svg class="rat-icon" viewBox="0 0 24 24" aria-hidden="true">
         <ellipse cx="12" cy="14" rx="7" ry="6" fill="currentColor"/>
         <ellipse cx="6" cy="10" rx="3" ry="4" fill="currentColor"/>
@@ -29,235 +31,255 @@
       DevWithARat
     </a>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about" data-scroll-to="#about">About</a></li>
+      <li><a href="#skills" data-scroll-to="#skills">Skills</a></li>
+      <li><a href="#projects" data-scroll-to="#projects">Projects</a></li>
+      <li><a href="#contact" data-scroll-to="#contact">Contact</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">Hire me</a>
+    <a href="#contact" data-scroll-to="#contact" class="nav-cta">Hire me</a>
   </nav>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-content">
-      <div class="hero-text">
-        <p class="hero-eyebrow animate-in" style="--delay:0">Roblox Developer</p>
-        <h1 class="hero-heading">
-          <span class="animate-in" style="--delay:1">Building</span>
-          <span class="animate-in" style="--delay:2">worlds</span>
-          <span class="hero-accent animate-in" style="--delay:3">with my rat.</span>
-        </h1>
-        <p class="hero-sub animate-in" style="--delay:4">
-          I script Roblox games, build systems, and ship experiences players love.
-        </p>
-        <div class="hero-buttons animate-in" style="--delay:5">
-          <a href="https://github.com/DevWithARat" target="_blank" rel="noopener" class="btn btn-primary">GitHub</a>
-          <a href="#projects" class="btn btn-ghost">See my work</a>
-        </div>
-      </div>
-      <div class="hero-visual animate-in" style="--delay:2">
-        <div class="avatar-wrap">
-          <img src="assets/avatar.png" alt="DevWithARat avatar — anime character with a rat on their head" />
-        </div>
-        <div class="hero-badge">
-          <span class="badge-dot"></span>
-          Open to projects
-        </div>
-      </div>
-    </div>
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <span>scroll</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
+  <!-- LOCOMOTIVE SCROLL CONTAINER -->
+  <div id="main-container" data-scroll-container>
 
-  <!-- ABOUT -->
-  <section id="about" class="section">
-    <div class="container">
-      <div class="section-label reveal">About</div>
-      <div class="about-grid">
-        <div class="about-text reveal">
-          <h2>A dev who brings a rat to work.</h2>
-          <p>
-            I'm a Roblox scripter focused on building games that feel smooth, fun, and polished.
-            From combat systems to complex datastores, I write clean Lua that scales.
+    <!-- HERO -->
+    <section id="hero" data-scroll-section>
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+      <div class="hero-content">
+        <div class="hero-text">
+          <p class="hero-eyebrow">Roblox Developer</p>
+          <h1 class="hero-heading">
+            <span class="word">Building</span>
+            <span class="word">worlds</span>
+            <span class="word hero-accent">with my rat.</span>
+          </h1>
+          <p class="hero-sub">
+            I script Roblox games, build systems, and ship experiences players love.
           </p>
-          <p>
-            When I'm not scripting, I'm designing systems on paper, playing the games I love,
-            and convincing my rat to review my code.
-          </p>
+          <div class="hero-buttons">
+            <a href="https://github.com/DevWithARat" target="_blank" rel="noopener" class="btn btn-primary">GitHub</a>
+            <a href="#projects" data-scroll-to="#projects" class="btn btn-ghost">See my work</a>
+          </div>
         </div>
-        <div class="about-stats reveal">
-          <div class="stat-card">
-            <span class="stat-num">Lua</span>
-            <span class="stat-label">Primary language</span>
+
+        <div class="hero-visual">
+          <div class="avatar-wrap" data-scroll data-scroll-speed="-1">
+            <img src="assets/avatar.png" alt="DevWithARat avatar — anime character with a rat on their head" />
           </div>
-          <div class="stat-card">
-            <span class="stat-num">Roblox</span>
-            <span class="stat-label">Platform of choice</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-num">1</span>
-            <span class="stat-label">Rat co-developer</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-num">∞</span>
-            <span class="stat-label">Lines debugged</span>
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            Open to projects
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- SKILLS -->
-  <section id="skills" class="section section-dark">
-    <div class="container">
-      <div class="section-label reveal">Skills</div>
-      <h2 class="section-heading reveal">What I work with</h2>
-      <div class="skills-grid">
-        <div class="skill-card reveal">
-          <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          </div>
-          <span class="skill-name">Lua / Luau</span>
-          <span class="skill-tag">Expert</span>
-        </div>
-        <div class="skill-card reveal">
-          <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
-          </div>
-          <span class="skill-name">Roblox Studio</span>
-          <span class="skill-tag">Expert</span>
-        </div>
-        <div class="skill-card reveal">
-          <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
-          </div>
-          <span class="skill-name">DataStore API</span>
-          <span class="skill-tag">Advanced</span>
-        </div>
-        <div class="skill-card reveal">
-          <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          </div>
-          <span class="skill-name">RemoteEvents</span>
-          <span class="skill-tag">Advanced</span>
-        </div>
-        <div class="skill-card reveal">
-          <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-          </div>
-          <span class="skill-name">OOP Systems</span>
-          <span class="skill-tag">Advanced</span>
-        </div>
-        <div class="skill-card reveal">
-          <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-          </div>
-          <span class="skill-name">Game Design</span>
-          <span class="skill-tag">Skilled</span>
-        </div>
-        <div class="skill-card reveal">
-          <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9.5 2A2.5 2.5 0 017 4.5v0A2.5 2.5 0 014.5 7H4a2 2 0 00-2 2v6a2 2 0 002 2h.5A2.5 2.5 0 017 19.5v0A2.5 2.5 0 019.5 22h5a2.5 2.5 0 002.5-2.5v0a2.5 2.5 0 012.5-2.5H20a2 2 0 002-2V9a2 2 0 00-2-2h-.5A2.5 2.5 0 0117 4.5v0A2.5 2.5 0 0114.5 2h-5z"/></svg>
-          </div>
-          <span class="skill-name">UI / UX (Roblox)</span>
-          <span class="skill-tag">Skilled</span>
-        </div>
-        <div class="skill-card reveal">
-          <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
-          </div>
-          <span class="skill-name">Git / GitHub</span>
-          <span class="skill-tag">Proficient</span>
-        </div>
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <span>scroll</span>
+        <div class="scroll-line"></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- PROJECTS -->
-  <section id="projects" class="section">
-    <div class="container">
-      <div class="section-label reveal">Projects</div>
-      <h2 class="section-heading reveal">Things I've built</h2>
-      <div class="projects-grid">
-        <article class="project-card reveal">
-          <div class="project-top">
-            <div class="project-icon">⚔️</div>
-            <div class="project-links">
-              <a href="https://github.com/DevWithARat" target="_blank" rel="noopener" aria-label="GitHub">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-              </a>
+    <!-- ABOUT -->
+    <section id="about" class="section" data-scroll-section>
+      <div class="container">
+        <div class="section-label">About</div>
+        <div class="about-grid">
+          <div class="about-text">
+            <h2 data-scroll data-scroll-speed="1">A dev who brings a rat to work.</h2>
+            <p>
+              I'm a Roblox scripter focused on building games that feel smooth, fun, and polished.
+              From combat systems to complex datastores, I write clean Lua that scales.
+            </p>
+            <p>
+              When I'm not scripting, I'm designing systems on paper, playing the games I love,
+              and convincing my rat to review my code.
+            </p>
+          </div>
+          <div class="about-stats">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="0">
+              <span class="stat-num">Lua</span>
+              <span class="stat-label">Primary language</span>
+            </div>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+              <span class="stat-num">Roblox</span>
+              <span class="stat-label">Platform of choice</span>
+            </div>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+              <span class="stat-num">1</span>
+              <span class="stat-label">Rat co-developer</span>
+            </div>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+              <span class="stat-num">&#8734;</span>
+              <span class="stat-label">Lines debugged</span>
             </div>
           </div>
-          <h3>Combat System</h3>
-          <p>A modular server-authoritative combat framework with hitbox detection, combo chains, and anti-exploit guards.</p>
-          <div class="project-tags">
-            <span>Lua</span><span>RemoteEvents</span><span>OOP</span>
-          </div>
-        </article>
-
-        <article class="project-card reveal">
-          <div class="project-top">
-            <div class="project-icon">💾</div>
-            <div class="project-links">
-              <a href="https://github.com/DevWithARat" target="_blank" rel="noopener" aria-label="GitHub">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-              </a>
-            </div>
-          </div>
-          <h3>DataStore Manager</h3>
-          <p>A robust player data wrapper with auto-save, session locking, migration support, and retry logic on load failures.</p>
-          <div class="project-tags">
-            <span>Lua</span><span>DataStore</span><span>Async</span>
-          </div>
-        </article>
-
-        <article class="project-card reveal">
-          <div class="project-top">
-            <div class="project-icon">🌍</div>
-            <div class="project-links">
-              <a href="https://github.com/DevWithARat" target="_blank" rel="noopener" aria-label="GitHub">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-              </a>
-            </div>
-          </div>
-          <h3>Open World Game</h3>
-          <p>An open-world Roblox experience with a quest system, NPC dialogue trees, inventory management, and dynamic day/night cycle.</p>
-          <div class="project-tags">
-            <span>Lua</span><span>Game Design</span><span>UI</span>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="section section-red">
-    <div class="container">
-      <div class="contact-inner">
-        <div class="contact-text reveal">
-          <div class="section-label" style="color: var(--black); opacity: 0.5;">Contact</div>
-          <h2>Let's build something.</h2>
-          <p>Have a Roblox project in mind? Want to collaborate or commission a script? My rat and I are ready.</p>
-        </div>
-        <div class="contact-links reveal">
-          <a href="https://github.com/DevWithARat" target="_blank" rel="noopener" class="contact-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-            GitHub
-          </a>
-          <a href="mailto:k.hawash3h@gmail.com" class="contact-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            Email
-          </a>
         </div>
       </div>
-    </div>
-    <footer class="footer">
-      <p>Built by DevWithARat &amp; his rat — 2025</p>
-    </footer>
-  </section>
+    </section>
 
+    <!-- SKILLS -->
+    <section id="skills" class="section section-dark" data-scroll-section>
+      <div class="container">
+        <div class="section-label">Skills</div>
+        <h2 class="section-heading" data-scroll data-scroll-speed="0.5">What I work with</h2>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <span class="skill-name">Lua / Luau</span>
+            <span class="skill-tag">Expert</span>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+            </div>
+            <span class="skill-name">Roblox Studio</span>
+            <span class="skill-tag">Expert</span>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+            </div>
+            <span class="skill-name">DataStore API</span>
+            <span class="skill-tag">Advanced</span>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <span class="skill-name">RemoteEvents</span>
+            <span class="skill-tag">Advanced</span>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+            </div>
+            <span class="skill-name">OOP Systems</span>
+            <span class="skill-tag">Advanced</span>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </div>
+            <span class="skill-name">Game Design</span>
+            <span class="skill-tag">Skilled</span>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9.5 2A2.5 2.5 0 017 4.5v0A2.5 2.5 0 014.5 7H4a2 2 0 00-2 2v6a2 2 0 002 2h.5A2.5 2.5 0 017 19.5v0A2.5 2.5 0 019.5 22h5a2.5 2.5 0 002.5-2.5v0a2.5 2.5 0 012.5-2.5H20a2 2 0 002-2V9a2 2 0 00-2-2h-.5A2.5 2.5 0 0117 4.5v0A2.5 2.5 0 0114.5 2h-5z"/></svg>
+            </div>
+            <span class="skill-name">UI / UX (Roblox)</span>
+            <span class="skill-tag">Skilled</span>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+            </div>
+            <span class="skill-name">Git / GitHub</span>
+            <span class="skill-tag">Proficient</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section" data-scroll-section>
+      <div class="container">
+        <div class="section-label">Projects</div>
+        <h2 class="section-heading" data-scroll data-scroll-speed="0.5">Things I've built</h2>
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-top">
+              <div class="project-icon">&#x2694;&#xFE0F;</div>
+              <div class="project-links">
+                <a href="https://github.com/DevWithARat" target="_blank" rel="noopener" aria-label="GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                </a>
+              </div>
+            </div>
+            <h3>Combat System</h3>
+            <p>A modular server-authoritative combat framework with hitbox detection, combo chains, and anti-exploit guards.</p>
+            <div class="project-tags">
+              <span>Lua</span><span>RemoteEvents</span><span>OOP</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-top">
+              <div class="project-icon">&#x1F4BE;</div>
+              <div class="project-links">
+                <a href="https://github.com/DevWithARat" target="_blank" rel="noopener" aria-label="GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                </a>
+              </div>
+            </div>
+            <h3>DataStore Manager</h3>
+            <p>A robust player data wrapper with auto-save, session locking, migration support, and retry logic on load failures.</p>
+            <div class="project-tags">
+              <span>Lua</span><span>DataStore</span><span>Async</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-top">
+              <div class="project-icon">&#x1F30D;</div>
+              <div class="project-links">
+                <a href="https://github.com/DevWithARat" target="_blank" rel="noopener" aria-label="GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                </a>
+              </div>
+            </div>
+            <h3>Open World Game</h3>
+            <p>An open-world Roblox experience with a quest system, NPC dialogue trees, inventory management, and dynamic day/night cycle.</p>
+            <div class="project-tags">
+              <span>Lua</span><span>Game Design</span><span>UI</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section section-red" data-scroll-section>
+      <div class="container">
+        <div class="contact-inner">
+          <div class="contact-text">
+            <div class="section-label" style="color: var(--black); opacity: 0.5;">Contact</div>
+            <h2>Let's build something.</h2>
+            <p>Have a Roblox project in mind? Want to collaborate or commission a script? My rat and I are ready.</p>
+          </div>
+          <div class="contact-links">
+            <a href="https://github.com/DevWithARat" target="_blank" rel="noopener" class="contact-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              GitHub
+            </a>
+            <a href="mailto:k.hawash3h@gmail.com" class="contact-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </a>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <p>Built by DevWithARat &amp; his rat — 2025</p>
+      </footer>
+    </section>
+
+  </div><!-- /main-container -->
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <!-- Locomotive Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+  <!-- Anime.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <!-- AOS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
